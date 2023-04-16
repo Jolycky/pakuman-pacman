@@ -31,10 +31,10 @@ class Pacman {
                     this.getMapX() == j &&
                     this.getMapY() == i
                 ) {
+                    let soundEffect = new Audio("./assets/sounds/munch.wav");
                     map[i][j] = 3;
                     score++;
-                    let soundEffect = new Audio(".\assets\sounds\munch.wav");
-                soundEffect.play();
+                    soundEffect.play();
                 }
             }
         }

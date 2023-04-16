@@ -34,6 +34,7 @@ class Pacman {
                     let soundEffect = new Audio("./assets/sounds/munch.wav");
                     map[i][j] = 3;
                     score++;
+                    score2++;
                     soundEffect.play();
                 }
             }

@@ -22,7 +22,7 @@ let ghostImageLocations = [
 
 // Game variables
 let fps = 30;
-let pacman;
+let pacman, pacman2;
 let oneBlockSize = 20;
 let score = 0;
 let score2 = 0;
@@ -81,6 +81,16 @@ let createNewPacman = () => {
     );
 };
 
+let createNewPacman2 = () => {
+    pacman2 = new Pacman(
+        oneBlockSize+340,
+        oneBlockSize,
+        oneBlockSize,
+        oneBlockSize,
+        oneBlockSize / 5
+    );
+};
+
 let gameLoop = () => {
     draw();
     update();
@@ -90,6 +100,7 @@ let gameInterval = setInterval(gameLoop, 1000 / fps);
 
 let restartPacmanAndGhosts = () => {
     createNewPacman();
+    createNewPacman2();
     createGhosts();
 };
 
@@ -107,17 +118,18 @@ let onGhostCollision = () => {
 let update = () => {
     pacman.moveProcess();
     pacman.eat();
+    pacman2.moveProcess();
+    pacman2.eat();
 
     updateGhosts();
     for ( let i = 0; i < ghostCount.length; i++) {
         ghost[i].moveProcess()
     }
-    if (pacman.checkGhostCollision(ghosts)) {
+    if (pacman.checkGhostCollision(ghosts) || pacman2.checkGhostCollision(ghosts)) {
         onGhostCollision();
     }
-    
-};
 
+};
 let drawFoods = () => {
     for (let i = 0; i < map.length; i++) {
         for (let j = 0; j < map[0].length; j++) {
@@ -146,6 +158,9 @@ let drawGameOver = () => {
     document.addEventListener('click', () => {
         location.reload(); // Reload the page on any click event
     });
+    document.addEventListener('keydown', () => {
+        location.reload(); // Reload the page on any keydown event
+      });
 };
 
 let drawRemainingLives = () => {
@@ -184,7 +199,7 @@ let drawScore2 = () => {
     canvasContext.fillText(
         "Score p2: " + score2,
         0,
-        30 * (map.length + 1)
+        60 * (map.length + 1)
     );
 };
 
@@ -195,6 +210,7 @@ let draw = () => {
     drawFoods();
     drawGhosts();
     pacman.draw();
+    pacman2.draw();
     drawScore();
     drawScore2();
     drawRemainingLives();
@@ -286,24 +302,44 @@ checkGameOver = () => {
   }
 
 createNewPacman();
+createNewPacman2();
 createGhosts();
 gameLoop();
 
 window.addEventListener("keydown", (event) => {
     let k = event.keyCode;
     setTimeout(() => {
-        if (k == 37 || k == 65) {
+        if (k == 65) {
             // left arrow or a
             pacman.nextDirection = DIRECTION_LEFT;
-        } else if (k == 38 || k == 87) {
+        } else if (k == 87) {
             // up arrow or w
             pacman.nextDirection = DIRECTION_UP;
-        } else if (k == 39 || k == 68) {
+        } else if (k == 68) {
             // right arrow or d
             pacman.nextDirection = DIRECTION_RIGHT;
-        } else if (k == 40 || k == 83) {
+        } else if (k == 83) {
             // bottom arrow or s
             pacman.nextDirection = DIRECTION_BOTTOM;
+        }
+    }, 1);
+});
+
+window.addEventListener("keydown", (event) => {
+    let k = event.keyCode;
+    setTimeout(() => {
+        if (k == 37) {
+            // left arrow or a
+            pacman2.nextDirection = DIRECTION_LEFT;
+        } else if (k == 38) {
+            // up arrow or w
+            pacman2.nextDirection = DIRECTION_UP;
+        } else if (k == 39) {
+            // right arrow or d
+            pacman2.nextDirection = DIRECTION_RIGHT;
+        } else if (k == 40) {
+            // bottom arrow or s
+            pacman2.nextDirection = DIRECTION_BOTTOM;
         }
     }, 1);
 });

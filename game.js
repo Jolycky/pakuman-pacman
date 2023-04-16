@@ -94,9 +94,9 @@ let restartPacmanAndGhosts = () => {
 };
 
 let onGhostCollision = () => {
-    lives--;
     let soundEffect = new Audio(".\assets\sounds\death.wav");
     soundEffect.play();
+    lives--;  
     restartPacmanAndGhosts();
     ;
     if (lives == 0) {

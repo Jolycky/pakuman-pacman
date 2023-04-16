@@ -1,45 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokimane</title>
-    <style>
-        @font-face {
-            font-family: 'Emulogic';
-            src: url('./assets/fonts/Emulogic-zrEw.ttf'); 
-        }
-        
-        body {
-            margin: 0;
-            background-color: black;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: "Emulogic", sans-serif;
-        }
-    </style>
+	<title>Start Game</title>
+	<style>
+		body {
+			background-color: black;
+			color: white;
+			font-family: Arial, sans-serif;
+			text-align: center;
+		}
+
+		button {
+			background-color: white;
+			color: black;
+			border: none;
+			padding: 10px 20px;
+			font-size: 24px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
+		}
+
+		button:hover {
+			background-color: gray;
+		}
+	</style>
 </head>
-
 <body>
-    <canvas id="canvas" width="500" height="500"></canvas>
-    <div style="display:none;">
-        <img id="animation" src="./assets/img/animations.gif" width="140" height="20">
-        <img id="ghosts" src="./assets/img/ghost.png" width="140" height="20">
-    </div>
-    <!-- audio -->
-    <iframe src="./assets/sounds/250-milliseconds-of-silence.mp3" allow="autoplay" id="audio" style="display: none"></iframe>
-    <audio id="player" autoplay loop>
-        <source src="./assets/sounds/Pacma.mp3" type="audio/mp3">
-    </audio>
-    <!-- jalanin js -->
-    <script src="ghost.js"></script>
-    <script src="pacman.js"></script>
-    <script src="game.js"></script>
-</body>
+	<h1>Welcome to Pokimane</h1>
+	<button onclick="playAudio()">Start Game</button>
+<audio id="bg-audio" src="./assets/sounds/250-milliseconds-of-silence.mp3" autoplay loop></audio>
 
+<script>
+function playAudio() {
+  const bgAudio = document.getElementById("bg-audio");
+  bgAudio.play();
+  window.location.href = "pacman.html";
+}
+
+</script>
+</body>
 </html>
